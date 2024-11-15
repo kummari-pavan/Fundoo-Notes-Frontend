@@ -1,104 +1,91 @@
-
-body {
+ body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f8f9fa;
+    background-color: #ffe8d8;
 }
 
 .register-container {
     display: flex;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    width: 700px;
+    border-radius: 15px;
+    padding: 15px; 
+    width: 800px; 
     background-color: #fff;
+    
 }
 
 .register-form-container {
-    flex: 1;
+
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 15px; 
 }
 
 .register-form-title {
-    color: #f9a825;
-    font-size: 24px;
+    color: hsl(16, 95%, 56%);
+    font-size: 25px; 
     font-weight: bold;
     display: flex;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .register-form-subtitle {
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 14px; 
     display: flex;
-   
+    font-weight: bold;
+    color: #666;
 }
 
-.register-form-group {
-    display: flex;
-    margin-top: 15px;
-    gap: 10px;
-    width: 95%;
-}
-
-.register-form-group input {
-    flex: 1;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.register-form-group-btn{
+.register-form-group-btn {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
-    gap: 10px;    
-
+    margin-top: 12px;
+    gap: 8px;
 }
 
 .register-form-group-full {
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
 .register-form-group-full input {
-    padding: 12px;
-    font-size: 14px;
+    padding: 15px; 
+    font-size: 13px; 
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 94%;
+    width: 93%;
 }
-
-.register-instructions {
-    font-size: 12px;
-    color: #777;
-    margin-top: 5px;
-    display: flex;
+.register-form-group-full-err input {
+    padding: 15px; 
+    font-size: 13px; 
+    border: 1px solid hsl(0, 100%, 50%);
+    border-radius: 4px;
+    width: 93%;
+    margin-top: 10px;
 }
 
 .register-button {
-    background-color: #3f51b5;
+    background-color:hwb(16 14% 2%);;
     color: #fff;
-    padding: 10px;
+    padding: 8px;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px; 
     cursor: pointer;
-    width: 100px;
-    margin-top: 50px;
+    width: 90px;
+    margin-top: 40px;
     align-self: flex-end;
 }
 
 .register-link {
-    margin-top: 60px;
-    font-size: 14px;
+    margin-top: 40px;
+    font-size: 13px;
     color: #3f51b5;
     cursor: pointer;
     text-decoration: underline;
@@ -110,40 +97,85 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-
+    margin-left: 20px;
 }
 
 .register-image-container img {
-    
-    margin-bottom: 25px;
-    width: 250px; 
-    height: 250px; 
+    margin-bottom: 20px;
+    width: 230px; 
+    height: 200px;
 }
 
 .register-image-text {
-    font-size: 14px;
+    font-size: 13px;
     color: #555;
     text-align: center;
 }
+
 .register-footer-cnt {
-    margin-top: 20px;
-    font-size: 12px;
+    margin-top: 15px;
+    font-size: 11px; 
     display: flex;
     justify-content: space-between;
-    text-align: left;
     width: 90%;
     padding-left: 5px;
 }
 
-
 .register-footer-links a {
     margin: 2px;
     color: #666;
-    text-decoration:underline;
-  
+    text-decoration: underline;
 }
 
 .register-language-selector-cnt select {
-   margin: 0px;
+    margin: 0px;
+}
+
+.register-form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.register-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    width: 100%;
+}
+
+.register-form-group input {
+  
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.register-form-group-err input{
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid hsl(0, 100%, 50%);
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 0.7rem; 
+    margin-top: 4px;
+    display: flex;
     
 }
+.register-header-logo {
+    width: 100px; /* Adjust as needed */
+    height: 100px;
+    margin-right: 12px; /* Adds space between the logo and titles */
+}
+.register-image-row{
+    display: flex;
+
+}
+.register-header-title{
+    margin-top: 25px;
+}
+
