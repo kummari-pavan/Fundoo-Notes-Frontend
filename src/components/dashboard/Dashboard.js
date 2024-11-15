@@ -16,14 +16,11 @@ export default function Dashboard() {
         setDrawerState(!drawerState)
         if(action!=='demo'){
             navigate(action)
-        }
-        
-        
+        }   
     };
 
     return (
         <div className='dashboard-main-container'>
-    
             <Drawer className='db-drawer-main-container' anchor="left" open={drawerState} onClose={() => toggleDrawer()}>
             <div className='db-drawer-main-container'>
                 <div className='db-drawer-left-icon' onClick={()=>toggleDrawer("notes")} > <LightbulbOutlinedIcon /> <span className='db-drawer-icon'> Notes </span> </div>    
@@ -41,10 +38,7 @@ export default function Dashboard() {
                 
                 </div> 
                 <Outlet />
-               
             </div>
-           
-          
         </div>
     );
 }
