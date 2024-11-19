@@ -6,10 +6,10 @@ const getAuth =()=>{
     return `Bearer ${localStorage.getItem('token')}`
 }
 
-export const loginApiCall = async(payload,END_POINT) => {
-    return await axios.post(`${BASE_URL}${END_POINT}`, payload)
-}
+    export const loginApiCall = async(payload,END_POINT) => {
+        return await axios.post(`${BASE_URL}${END_POINT}`, payload)
+    }
 
-export const signupApiCall = async(payload,END_POINT)=>{
-    return await axios.post(`${BASE_URL}${END_POINT}`,payload)
-}
+    export const signupApiCall = async(payload,END_POINT)=>{
+        return await axios.post(`${BASE_URL}${END_POINT}`,payload)
+    }

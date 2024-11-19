@@ -37,20 +37,20 @@ function Register() {
         }
 
         signupApiCall({name,username,email,password},`users`)
-        .then((result)=>{
-        const {data}=result
-            if(data.message==="User registered successfully"){
-            alert("User Succesfully Created !")
-            navigate("/")
-            }
-            else{
-            alert("User Not Created !")
-            }
-        })
-        .catch((error)=>{
-        console.log(error)
-        alert("User Not Created due to backend Error!")
-        })
+            .then((result)=>{
+            const {data}=result
+                if(data.message==="User registered successfully"){
+                alert("User Succesfully Created !")
+                navigate("/")
+                }
+                else{
+                alert("User Not Created !")
+                }
+            })
+            .catch((error)=>{
+            console.log(error)
+            alert("User Not Created due to backend Error!")
+            })
 
         setErrors(newErrors);
        
