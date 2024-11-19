@@ -13,3 +13,11 @@ const getAuth =()=>{
     export const signupApiCall = async(payload,END_POINT)=>{
         return await axios.post(`${BASE_URL}${END_POINT}`,payload)
     }
+    export const getAllNotesApiCall = async(END_POINT)=>{
+        return await axios.get(`${BASE_URL}${END_POINT}`,
+            { headers:{
+                Authorization:getAuth()
+             }
+             }
+        )
+    }

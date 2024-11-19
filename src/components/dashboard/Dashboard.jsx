@@ -23,7 +23,7 @@ import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import { Outlet } from "react-router-dom";
+import { Outlet ,useNavigate} from "react-router-dom";
 import './Dashboard.scss'
 
 function DashboardNavbar({children}) {
@@ -32,6 +32,7 @@ function DashboardNavbar({children}) {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const navigate =useNavigate()
 
   return (
     <div className="dashboard-body">
@@ -111,25 +112,25 @@ function DashboardNavbar({children}) {
                   {/* List Item: Notes */}
                   <ListItem button>
                     <ListItemIcon>
-                      <LightbulbOutlinedIcon/>
+                      <LightbulbOutlinedIcon onClick={()=>navigate('/dashboard/notes')} />
                     </ListItemIcon>
-                    {drawerOpen && <ListItemText primary="Notes" />}
+                    {drawerOpen && <ListItemText primary="Notes" onClick={()=>navigate('/dashboard/notes')} />}
                   </ListItem>
 
                   {/* List Item: Archive */}
                   <ListItem button>
                     <ListItemIcon>
-                      <ArchiveOutlinedIcon />
+                      <ArchiveOutlinedIcon onClick={()=>navigate('/dashboard/archive')}/>
                     </ListItemIcon>
-                    {drawerOpen && <ListItemText primary="Archive" />}
+                    {drawerOpen && <ListItemText primary="Archive" onClick={()=>navigate('/dashboard/archive')}/>}
                   </ListItem>
 
                   {/* List Item: Trash */}
                   <ListItem button>
                     <ListItemIcon>
-                      <DeleteOutlineOutlinedIcon />
+                      <DeleteOutlineOutlinedIcon onClick={()=>navigate('/dashboard/trash')} />
                     </ListItemIcon>
-                    {drawerOpen && <ListItemText primary="Trash" />}
+                    {drawerOpen && <ListItemText primary="Trash" onClick={()=>navigate('/dashboard/trash')}/>}
                   </ListItem>
 
                   {/* List Item: Notifications */}
