@@ -3,12 +3,12 @@ import { createBrowserRouter,RouterProvider,useNavigate } from "react-router-dom
 import Register from "./components/register_page/Register";
 import Login from "./components/login_page/Login";
 import Dashboard from "./components/dashboard/Dashboard";
-import NotesContainer from "./components/notes_container/NotesContainer";
+import NotesContainer from "./components/notes_container/Form";
 
 function RouteModules(){
     const routes=createBrowserRouter([
         {
-            path: "login",
+            path: "",
             element: <Login/>
         },
         {
@@ -17,13 +17,15 @@ function RouteModules(){
         },
         {
             path: "dashboard",
-            element: <Dashboard/>
+            element: <Dashboard/>,
+            children:[
+                {
+                    path: "notes",
+                    element: <NotesContainer/>
+                }
+            ]
         },
-        {
-            path: "notes",
-            element: <NotesContainer/>
-        }
-
+        
     ])
     return(
         <RouterProvider router={routes} />

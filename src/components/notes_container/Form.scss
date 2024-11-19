@@ -1,9 +1,8 @@
-body {
+.notes-body {
     display: flex;
     flex-direction: column;
-    align-items: stretch; 
+    align-items: center; 
     justify-content: flex-start; 
-    height: 100vh; 
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f8f9fa;
@@ -13,10 +12,11 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    width: 500px;
 }
 
 .input-bar {
-    width: 80%;
+    width: 100%;
     max-width: 500px;
     transition: all 0.3s ease;
     &:hover {

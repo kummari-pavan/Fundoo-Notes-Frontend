@@ -1,5 +1,15 @@
 import axios from "axios";
+const BASE_URL=`http://localhost:4000/api/v1/`;
 
-export const loginApiCall = ()=>{
-    return axios.post("http://localhost:3000/api/v1/users/login",{email:"kpavansolutions@gmail.com",password:"PavanPavanPavanR180185"})
-} 
+
+const getAuth =()=>{
+    return `Bearer ${localStorage.getItem('token')}`
+}
+
+export const loginApiCall = async(payload,END_POINT) => {
+    return await axios.post(`${BASE_URL}${END_POINT}`, payload)
+}
+
+export const signupApiCall = async(payload,END_POINT)=>{
+    return await axios.post(`${BASE_URL}${END_POINT}`,payload)
+}

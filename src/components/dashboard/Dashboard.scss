@@ -1,49 +1,77 @@
-
-.db-main-container {
-    display: flex !important;
-    flex-direction: row !important;
+.dashboard-body{
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    height: 100vh; 
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;  
 }
 
-.db-left-main-container{
+.dashboard-drawer {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    background-color: #f8f9fa;  
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+
+    &.open {
+      width: 250px;
+    }
+  
+    &:not(.open) {
+      width: 65px;
+      border-radius: 40px;
+    }
+  
+    .drawer-content {
+      padding: 5px;
+  
+      .MuiListItem-root {
+        display: flex;
+        align-items: center;
+  
+        .MuiListItemText-root {
+          display: inline-block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+  
+        &:hover {
+          background-color:  hsl(16, 100%, 74%);
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+  
+  .drawer-content {
     display: flex;
     flex-direction: column;
-}
-.db-left-icon{
-    margin: 12px;
-    width: auto;
-    font-size: larger;
- 
-}
-.db-drawer-left-icon{
-    padding: 12px;
-    width: auto;
-    display:flex ;
-    flex-direction: row;
-
-    &:hover {
-       background-color: orange; 
-       border-top-right-radius: 25%;
-       border-bottom-right-radius: 25%;
-
+    height: 100%;
+    padding: 16px;
+  
+    .MuiListItem-root {
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+  
+      &:hover {
+        background-color: #e0e0e0;
+      }
+  
+      .MuiListItemIcon-root {
+        color: #5f6368; 
+      }
+  
+      .MuiListItemText-primary {
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
     }
-
 }
 
-
-.db-drawer-main-container{
-    margin-top:105px;
-}
-.db-drawer-icon{
-    margin-left: 20px;
-    font-size: medium;
-}
-
-
-@media only screen and (min-width: 250px) and (max-width: 650px) {
-    .db-main-container {
-         display: flex !important;
-         width: 95%;
-         justify-content: center;
-     }
-
-   } 

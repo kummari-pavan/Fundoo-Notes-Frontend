@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
+import { signupApiCall } from '../../utils/Api';
 
 function Register() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [userName, setUserName] = useState('');
+    const [name, setFirstName] = useState('');
+    const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
-   
+    const navigate=useNavigate()
 
     const handleRegister = () => {
         let newErrors = {};
-        if (!firstName.trim()) {
+        if (!name.trim()) {
             newErrors.firstName = '*First name is required';
         }
-
-        if (!lastName.trim()) {
-            newErrors.lastName = '*Last name is required';
-        }
-        if (!userName.trim()) {
-            newErrors.userName = '*Username is required';
+        if (!username.trim()) {
+            newErrors.username = '*Username is required';
         }
 
         if (!email.trim()) {
@@ -40,15 +36,28 @@ function Register() {
             newErrors.confirmPassword = '*Passwords do not match';
         }
 
+        signupApiCall({name,username,email,password},`users`)
+        .then((result)=>{
+        const {data}=result
+            if(data.message==="User registered successfully"){
+            alert("User Succesfully Created !")
+            navigate("/")
+            }
+            else{
+            alert("User Not Created !")
+            }
+        })
+        .catch((error)=>{
+        console.log(error)
+        alert("User Not Created due to backend Error!")
+        })
+
         setErrors(newErrors);
-        if (Object.keys(newErrors).length === 0) {
-            console.log('Form submitted');
-        }
        
     };
 
     return (
-        <div>
+        <div className="register-body">
             <div className="register-container">
                 <div className="register-form-container">
                     <div className="register-image-row">
@@ -58,28 +67,16 @@ function Register() {
                         <div className="register-form-subtitle">Create your Fundo Account</div>
                         </div>
                     </div>
-                    
-                    <div className="register-form-row">
-                    <div className={errors.firstName ? 'register-form-group-err' : 'register-form-group'}>
+                        
+                    <div className={errors.name ? 'register-form-group-full-err' : 'register-form-group-full'}>
                         <input
                             type="text"
-                            placeholder="First Name*"
-                            value={firstName}
+                            placeholder="Full Name*"
+                            value={name}
                             onChange={(e) => setFirstName(e.target.value)}
                             
                         />
-                        {errors.firstName && <div className="error">{errors.firstName}</div>}
-                    </div>
-
-                    <div className={errors.lastName ? 'register-form-group-err' : 'register-form-group'}>
-                        <input
-                            type="text"
-                            placeholder="Last Name*"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        {errors.lastName && <div className="error">{errors.lastName}</div>}
-                    </div>
+                        {errors.name && <div className="error">{errors.name}</div>}
                     </div>
                 
                     <div className={errors.email ? 'register-form-group-full-err' : 'register-form-group-full'}>
@@ -89,14 +86,14 @@ function Register() {
                         {errors.email && <div className="error">{errors.email}</div>}
                     </div>
 
-                    <div className={errors.userName ? 'register-form-group-full-err' : 'register-form-group-full'}>
+                    <div className={errors.username ? 'register-form-group-full-err' : 'register-form-group-full'}>
                         <input
                             type="text"
                             placeholder="Username*"
-                            value={userName}
+                            value={username}
                             onChange={(e) => setUserName(e.target.value)}
                         />
-                        {errors.userName && <div className="error">{errors.userName}</div>}
+                        {errors.username && <div className="error">{errors.username}</div>}
                     </div>
 
                     <div className="register-form-row">
@@ -122,7 +119,7 @@ function Register() {
                     </div>
 
                     <div className="register-form-group-btn">
-                        <Link to="/login" className="register-link">Sign in instead</Link>
+                        <Link to="/" className="register-link">Sign in instead</Link>
                         <button className="register-button" onClick={handleRegister}>Register</button>
                     </div>
                 </div>
@@ -132,22 +129,7 @@ function Register() {
                     <div className="register-image-text">One account. All of Fundo working for you.</div>
                 </div>
             </div>
-            
-            <footer className="register-footer-cnt">
-                <div className="register-language-selector-cnt">
-                    <select>
-                        <option>English (United States)</option>
-                        <option>Telugu (AP)</option>
-                        <option>Kannada (Karnataka)</option>
-                        <option>Hindi (India)</option>
-                    </select>
-                </div>
-                <div className="register-footer-links">
-                    <a href="#">Help</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                </div>
-            </footer>
+
         </div>
     );
 }

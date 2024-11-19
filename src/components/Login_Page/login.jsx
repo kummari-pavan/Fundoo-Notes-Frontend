@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom'; 
+import { Link,useNavigate } from 'react-router-dom'; 
 import { loginApiCall } from '../../utils/Api';
 
+
 function Login() {
+  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginErrors, setErrors] = useState({});
+  const navigate=useNavigate()
 
   const handleLogin = () => {
     let newErrors = {};
- 
-
     if (!email.trim()) {
         newErrors.email = '*Email is required';
     }
@@ -23,16 +24,43 @@ function Login() {
         newErrors.password = '*Password should be at least 8 characters';
     }
 
+    loginApiCall({email,password},`users/login`)
+    .then((result)=>{
+     console.log(result);
+ 
+     const {data} =result
+ 
+     console.log(data);
+     
+        if(data.message==="Login successful"){
+         navigate("dashboard/notes")
+         alert("User successfully Login")
+         localStorage.setItem('token',data.data)
+        
+       }
+       else if(data.message==="User is not registered !"){
+         alert("User is not registered !")
+       }
+       else if(data.message==="User Password Is Wrong !"){
+         alert("User Password Is Wrong !")
+       }
+       else{
+         alert("User not Login")
+       }
+   
+    })
+    .catch((error)=>{
+        console.log(error)
+        alert("User not Login due to backend")
+    })
+
     setErrors(newErrors);
-    if (Object.keys(newErrors).length === 0) {
-        loginApiCall()
-        console.log('Login Successful !');
-    }
+    
    
 };
 
   return (
-    <div>
+    <div className="login-body">
     <div className="login-container">
       <div className="login-form-container">
         <h1 className="login-form-title">Fundoo-Notes</h1>
@@ -56,22 +84,6 @@ function Login() {
         </div>
       </div>
     </div>
-     <footer className='login-footer-cnt'>
-     <div className="login-language-selector-cnt">
-         <select>
-         <option>English (United States)</option>
-         <option>Telugu (AP)</option>
-         <option>Kannada (Karnataka)</option>
-         <option>Hindi (India)</option>
-         </select>
-     </div>
-     <div className="login-footer-links">
-         <a href="#">Help</a>
-         <a href="#">Privacy</a>
-         <a href="#">Terms</a>
-     </div>
-     
-     </footer>
      </div>
     
   );
