@@ -179,3 +179,13 @@
     margin-top: 25px;
 }
 
+/* Ensure the canvas overlays the entire screen for the confetti animation */
+canvas#confetti {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it appears above all other elements */
+    pointer-events: none; /* Prevents interfering with user interactions */
+}

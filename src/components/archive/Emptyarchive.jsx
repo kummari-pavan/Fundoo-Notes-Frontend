@@ -19,7 +19,7 @@ const EmptyArchive = () => {
              <img
                 src={`${process.env.PUBLIC_URL}/images/archive1.png`}
                 alt="Logo"
-                style={{ height: "160px", width: "auto"}}
+                style={{ height: "130px", width: "auto"}}
               />
             <Text>Notes you Archived appear here</Text>
         </Container>

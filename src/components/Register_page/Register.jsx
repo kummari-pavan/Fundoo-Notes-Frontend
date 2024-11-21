@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import './Register.css';
 import { Link ,useNavigate} from 'react-router-dom';
 import { signupApiCall } from '../../utils/Api';
+import JSConfetti from 'js-confetti';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
-    const [name, setFirstName] = useState('');
+    const [name, setName] = useState('');
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
     const navigate=useNavigate()
+        
+       const jsConfetti = new JSConfetti();
 
     const handleRegister = () => {
         let newErrors = {};
         if (!name.trim()) {
-            newErrors.firstName = '*First name is required';
+            newErrors.name = '*name is required';
         }
         if (!username.trim()) {
             newErrors.username = '*Username is required';
@@ -40,16 +45,55 @@ function Register() {
             .then((result)=>{
             const {data}=result
                 if(data.message==="User registered successfully"){
-                alert("User Succesfully Created !")
-                navigate("/")
+                    toast.success("User Successfully Created!", {
+                        position: "bottom-center",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        transition: Bounce,
+                      });
+                jsConfetti.addConfetti({
+                    emojis: ['✨', '✨', '⚡️','🟩', '✨', '🟥', '✨', '🟦', '✨', '🟨', '✨', '🟪', '🟧', '🟩', '🟧', '🟨'],
+                    emojiSize: 18,
+                    confettiNumber: 200,
+                });
+                
+                setTimeout(() => {
+                    navigate("/")
+                }, 3000);
+                
                 }
                 else{
-                alert("User Not Created !")
+                    toast.error("User Not Created!", {
+                        position: "bottom-center",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        transition: Bounce,
+                      });
                 }
             })
             .catch((error)=>{
             console.log(error)
-            alert("User Not Created due to backend Error!")
+            toast.error("Backend Error!", {
+                position: "bottom-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+              });
             })
 
         setErrors(newErrors);
@@ -73,7 +117,7 @@ function Register() {
                             type="text"
                             placeholder="Full Name*"
                             value={name}
-                            onChange={(e) => setFirstName(e.target.value)}
+                            onChange={(e) => setName(e.target.value)}
                             
                         />
                         {errors.name && <div className="error">{errors.name}</div>}
@@ -129,9 +173,25 @@ function Register() {
                     <div className="register-image-text">One account. All of Fundo working for you.</div>
                 </div>
             </div>
+            <ToastContainer
+            position="bottom-center"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover={false}
+            theme="colored"
+            transition={Bounce}
+            />
 
         </div>
     );
 }
 
 export default Register;
+
+
+
