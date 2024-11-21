@@ -45,7 +45,7 @@ function Register() {
             .then((result)=>{
             const {data}=result
                 if(data.message==="User registered successfully"){
-                    toast.success("User Successfully Created!", {
+                    toast.success("User Successfully Created!!", {
                         position: "bottom-center",
                         autoClose: 4000,
                         hideProgressBar: false,
@@ -83,7 +83,7 @@ function Register() {
             })
             .catch((error)=>{
             console.log(error)
-            toast.error("Backend Error!", {
+            toast.error("Backend Error!!", {
                 position: "bottom-center",
                 autoClose: 4000,
                 hideProgressBar: false,
