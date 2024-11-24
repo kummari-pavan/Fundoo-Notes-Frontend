@@ -6,9 +6,14 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import EmptyArchive from "./components/archive/EmptyArchive";
 import EmptyTrash from "./components/trash/EmptyTrash";
+import WelcomePage from "./components/start/Start"
 
 function RouteModules(){
     const routes=createBrowserRouter([
+        {
+            path: "",
+            element: <WelcomePage/>
+        },
         {
             path: "login",
             element: <Login/>

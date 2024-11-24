@@ -1,0 +1,109 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background:  #ffffff;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .welcome-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding: 20px;
+    margin-left: 100px;
+    gap:20px;
+}
+.welcome-image-container img {
+    margin-bottom: 20px;
+    width: 60px; 
+    height: 60px;
+}
+
+.welcome-image-text {
+    font-size: 13px;
+    color: #555;
+    text-align: center;
+}
+.welcome-form-title {
+    color: hsl(16, 95%, 56%);
+    font-size: 25px; 
+    font-weight: bold;
+    display: flex;
+    padding-bottom: 8px;
+}
+.welcome-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap:20px;
+
+}
+.welcome-container img {
+    margin-bottom: 20px;
+    margin-left: 30px;
+    width: 460px; 
+    height:400px;
+}
+.welcome-sub-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin-left: 50px;
+    padding: 20px;
+
+}
+.welcome-title{
+    font-size: 25px; 
+    font-family:sans-serif;
+}
+  
+  .heading {
+    text-align: center;
+    color: #333333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    
+  }
+  
+
+.get-started ,.already-account{
+    background: linear-gradient(to bottom, #e85922 ,#e85922); 
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px; 
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .get-started:hover,.already-account:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .get-started:active {
+    transform: translateY(2px); 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+    .already-account {
+    background: #ffffff;
+    color: #e85922;
+    border: 1px solid #e85922;
+    text-decoration-line: none;
+  }
+  
