@@ -1,18 +1,13 @@
 import react from "react";
 import { createBrowserRouter,RouterProvider,useNavigate } from "react-router-dom";
-import SwipeDrawer from "./components/SwiperDrawer";
-import DisplayNotes from "./components/notes/Notes"
+import Dashboard from "./components/Dashboard";
 import NotesContainer from "./components/notes/NotesContainer"
 
 function RouteModules(){
     const routes=createBrowserRouter([
         {
-            path: "notes",
-            element: <NotesContainer/>
-        },
-        {
             path: "dashboard",
-            element: <SwipeDrawer/>,
+            element: <Dashboard/>,
             children:[
                 {
                     path: "notes",
