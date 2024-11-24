@@ -33,8 +33,7 @@ function AddNoteForm() {
 
     return (
         <>
-        <div className="notes-body">
-            <div className="notes-container">
+       <div className="notes-container">
                 <Paper 
                     elevation={3} 
                     className="input-bar" 
@@ -112,7 +111,6 @@ function AddNoteForm() {
                     </Box>
                 </Modal>
             </div>
-        </div> 
         </>
     );
     

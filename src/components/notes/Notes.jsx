@@ -3,7 +3,7 @@ import {fetchNotes} from '../../utils/Api';
 import EmptyNotes from './EmptyNotes';
 import NoteCard from './NoteCard'
 
-const DisplayNotes =()=>{
+const Notes =()=>{
     const[notesData,setNotesData]=useState([])
 
     
@@ -36,4 +36,4 @@ const DisplayNotes =()=>{
     )
 }
 
-export default DisplayNotes;
+export default Notes;

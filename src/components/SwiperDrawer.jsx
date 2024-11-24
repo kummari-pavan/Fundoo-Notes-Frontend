@@ -6,6 +6,7 @@ import MuiDrawer from '@mui/material/Drawer';
 //components
 import HeaderBar from './HeaderBar';
 import SideNavBar from './SideNavBar';
+import NoteContainer from './notes/NotesContainer';
 
 const drawerWidth = 240;
 
@@ -69,8 +70,11 @@ function SwipeDrawer() {
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader></DrawerHeader>
                 <SideNavBar />
+                
             </Drawer>
+            <NoteContainer/>
         </Box>
+
     );
 }
 
