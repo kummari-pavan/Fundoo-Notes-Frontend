@@ -15,7 +15,7 @@ const Container = styled(Box)`
 
 const EmptyTrash = () => {
     return (
-        <Container style={{marginLeft:"60px",marginTop:"100px" }}>
+        <Container style={{marginLeft:"350px",marginTop:"250px" }}>
              <img
                 src={`${process.env.PUBLIC_URL}/images/trash1.png`}
                 alt="Logo"

@@ -33,7 +33,7 @@ function AddNoteForm() {
 
     return (
         <>
-       <div className="notes-container">
+       <div className="add-notes-container">
                 <Paper 
                     elevation={3} 
                     className="input-bar" 

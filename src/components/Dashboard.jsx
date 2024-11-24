@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
+import { Outlet} from "react-router-dom";
 
 //components
 import HeaderBar from './HeaderBar';
@@ -72,7 +73,7 @@ function Dashboard() {
                 <SideNavBar />
                 
             </Drawer>
-            <NoteContainer/>
+            <Outlet/>
         </Box>
 
     );

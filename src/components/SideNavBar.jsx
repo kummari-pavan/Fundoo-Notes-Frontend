@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const SideNavBar = () => {
 
     const navList = [
-        { id: 1, name: 'Notes', icon: <Lightbulb />, route: '/' },
-        { id: 2, name: 'Archives', icon: <Archive />, route: '/archive' },
-        { id: 3, name: 'Trash', icon: <Delete />, route: '/delete' },
+        { id: 1, name: 'Notes', icon: <Lightbulb />, route: '/dashboard/notes' },
+        { id: 2, name: 'Archives', icon: <Archive />, route: '/dashboard/archive' },
+        { id: 3, name: 'Trash', icon: <Delete />, route: '/dashboard/trash' },
     ]
     
     return (

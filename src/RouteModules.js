@@ -4,6 +4,8 @@ import Dashboard from "./components/Dashboard";
 import NotesContainer from "./components/notes/NotesContainer"
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import EmptyArchive from "./components/archive/EmptyArchive";
+import EmptyTrash from "./components/trash/EmptyTrash";
 
 function RouteModules(){
     const routes=createBrowserRouter([
@@ -22,6 +24,14 @@ function RouteModules(){
                 {
                     path: "notes",
                     element: <NotesContainer/>
+                },
+                {
+                    path: "trash",
+                    element: <EmptyTrash/>
+                },
+                {
+                    path: "archive",
+                    element: <EmptyArchive/>
                 }
             ]
         },

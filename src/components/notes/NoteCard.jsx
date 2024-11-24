@@ -3,10 +3,11 @@ import { styled } from '@mui/material/styles';
 import { ArchiveOutlined as Archive, DeleteOutlineOutlined as Delete } from '@mui/icons-material';
 
 const StyledCard = styled(Card)`
-    border: 1px solid #e0e0e0;
+    border: 1px solid red;
     border-radius: 8px;
     margin: 8px;
     box-shadow: none;
+    padding:5px
 `
 
 const NoteCard = ({ noteDetails }) => {
