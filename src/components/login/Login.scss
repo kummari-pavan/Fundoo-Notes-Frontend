@@ -1,0 +1,144 @@
+
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.login-container {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    background-color: #fff;
+}
+
+.login-form-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.login-form-title {
+    color:hwb(16 14% 2%);;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-subtitle {
+    margin-top:5px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-form-sub-title {
+    margin-top: 2px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-form-group {
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+    width: 95%;
+}
+
+.login-form-group input {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.login-form-group-btn{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 10px;    
+
+}
+
+.login-form-group-full {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+
+.login-form-group-full input {
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%;
+    
+}
+.login-form-group-full-err input {
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid hsl(0, 100%, 50%);
+    border-radius: 4px;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.login-instructions {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.login-button {
+    background-color:hwb(16 14% 2%);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100px;
+    margin-top: 50px;
+    align-self: flex-end;
+}
+
+.login-pass-link {
+    font-size: 14px;
+    color: #3f51b5;
+    cursor: pointer;
+    margin-top: 8px;
+    display: flex;
+}
+.login-create-link {
+    margin-top: 60px;
+    font-size: 14px;
+    color: #3f51b5;
+    cursor: pointer;
+}
+
+.login-language-selector-cnt select {
+   margin: 0px;
+    
+}
+.login-error {
+    color: red;
+    font-size: 0.7rem; 
+    margin-top: 6px;
+    display: flex;
+    margin-bottom:4px ;
+    
+}
