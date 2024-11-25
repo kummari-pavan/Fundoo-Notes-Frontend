@@ -46,7 +46,7 @@ export const fetchNotes = async () => {
     }
   }
 
-// Function to create a new note
+//create a new note
 export const createNoteApiCall = async (noteData) => {
   try {
       const token = localStorage.getItem("token");
@@ -66,6 +66,7 @@ export const createNoteApiCall = async (noteData) => {
       throw error.response?.data?.message || error.message || "Error creating note";
   }
 };
+
 
 
 
