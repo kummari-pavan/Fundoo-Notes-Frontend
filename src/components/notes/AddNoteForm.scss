@@ -1,16 +1,17 @@
-
 .add-notes-container {
-    display: flex;
-    justify-content: center;
     margin-top: 20px;
+    margin-left: 220px;
+
 
 }
+
+
 
 .input-bar {
     width: 100%;
     max-width: 500px;
     transition: all 0.3s ease;
     &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
     }
 }

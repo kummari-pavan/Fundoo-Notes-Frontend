@@ -33,84 +33,95 @@ function AddNoteForm() {
 
     return (
         <>
-       <div className="add-notes-container">
-                <Paper 
-                    elevation={3} 
-                    className="input-bar" 
-                    onClick={handleOpen}
-                    sx={{
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        padding: '8px 16px', 
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                    }} >
-                    <InputBase placeholder="Take a note..." fullWidth sx={{ flex: 1,cursor: 'pointer' }} onClick={handleOpen} />
-                    <IconButton><AddIcon /></IconButton>
-                    <IconButton><EditIcon /></IconButton>
-                    <IconButton><ImageIcon /></IconButton>
-                </Paper>
+       
+                        
+            <div className="add-notes-container">
+                        
+                        <Paper 
+                            elevation={3} 
+                            className="input-bar" 
+                            onClick={handleOpen}
+                            sx={{
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                padding: '8px 16px', 
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                            }} >
+                            <img
+                                src={`${process.env.PUBLIC_URL}/images/buld.jpg`}
+                                alt="Logo"
+                                style={{ height: "40px", width: "auto",paddingRight:"5px" }}
+                            />
+                            <InputBase placeholder="Take a note..." fullWidth sx={{ flex: 1,cursor: 'pointer' }} onClick={handleOpen} />
+                            <IconButton><AddIcon /></IconButton>
+                            <IconButton><EditIcon /></IconButton>
+                            <IconButton><ImageIcon /></IconButton>
+                        </Paper>
 
-                <Modal
-                    open={isExpanded}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description" >
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            bgcolor: 'background.paper',
-                            border: '2px solid;',
-                            boxShadow: 24,
-                            p: 4,
-                            borderRadius: '8px'
-                        }}
-                    >
-                        <TextField
-                            variant="outlined"
-                            placeholder="Title"
-                            fullWidth
-                            name="title"
-                            value={note.title}
-                            onChange={handleChange}
-                            sx={{ mb: 2 }}
-                        />
-                        <TextField
-                            variant="outlined"
-                            placeholder="Take a note..."
-                            fullWidth
-                            multiline
-                            rows={4}
-                            name="description"
-                            value={note.description}
-                            onChange={handleChange}
-                        />
-                        <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                mt: 3,
-                            }}>
-                            <Box sx={{ display: 'flex', gap: 1 }}>
-                                <IconButton><NotificationsIcon /></IconButton>
-                                <IconButton><PersonAddIcon /></IconButton>
-                                <IconButton><PaletteIcon /></IconButton>
-                                <IconButton><ArchiveIcon /></IconButton> 
-                                <IconButton><MoreVertIcon /></IconButton>
-                                <IconButton><UndoIcon /></IconButton>
-                                <IconButton><RedoIcon /></IconButton>
+                        <Modal
+                            open={isExpanded}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description" >
+                            <Box
+                                sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    width: 400,
+                                    bgcolor: 'background.paper',
+                                    border: '2px solid gray;',
+                                    boxShadow: 24,
+                                    p: 4,
+                                    borderRadius: '8px'
+                                }}
+                            >
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Title"
+                                    fullWidth
+                                    name="title"
+                                    value={note.title}
+                                    onChange={handleChange}
+                                    sx={{ mb: 2 }}
+                                />
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Take a note..."
+                                    fullWidth
+                                    multiline
+                                    rows={4}
+                                    name="description"
+                                    value={note.description}
+                                    onChange={handleChange}
+                                />
+                                <Box sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        mt: 3,
+                                    }}>
+                                    <Box sx={{ display: 'flex', gap: 1 }}>
+                                        <IconButton><NotificationsIcon /></IconButton>
+                                        <IconButton><PersonAddIcon /></IconButton>
+                                        <IconButton><PaletteIcon /></IconButton>
+                                        <IconButton><ArchiveIcon /></IconButton> 
+                                        <IconButton><MoreVertIcon /></IconButton>
+                                        <IconButton><UndoIcon /></IconButton>
+                                        <IconButton><RedoIcon /></IconButton>
+                                    </Box>
+                                    <Box display="flex" justifyContent="flex-end" mt={2}>
+                                    <IconButton onClick={handleClose}><DoneIcon /></IconButton>
+                                </Box>
+                                </Box>                        
                             </Box>
-                            <Box display="flex" justifyContent="flex-end" mt={2}>
-                            <IconButton onClick={handleClose}><DoneIcon /></IconButton>
-                        </Box>
-                        </Box>                        
-                    </Box>
-                </Modal>
-            </div>
+                        </Modal>
+            </div>            
+      
+        
+      
         </>
     );
     

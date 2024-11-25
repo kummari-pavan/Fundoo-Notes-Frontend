@@ -1,0 +1,29 @@
+.notes-container {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .note-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 1200px; 
+  }
+  
+
+  @media (max-width: 768px) {
+    .note-card-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .note-card-grid {
+      grid-template-columns: 1fr; 
+    }
+  }
+  

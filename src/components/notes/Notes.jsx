@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import {fetchNotes} from '../../utils/Api';
 import EmptyNotes from './EmptyNotes';
 import NoteCard from './NoteCard'
+import './Notes.scss'
 
 const Notes =()=>{
     const[notesData,setNotesData]=useState([])
@@ -24,15 +25,17 @@ const Notes =()=>{
     },[]);
 
     return(
-        <div className="notes-container">
-         {notesData.length > 0 ? (
-            notesData.map((note) => (
+    <div className="notes-container">
+      {notesData.length > 0 ? (
+        <div className="note-card-grid">
+          {notesData.map((note) => (
             <NoteCard key={note._id} noteDetails={note} />
-            ))
-        ) : (
-           <EmptyNotes/>
-        )}
+          ))}
         </div>
+      ) : (
+        <EmptyNotes />
+      )}
+    </div>
     )
 }
 

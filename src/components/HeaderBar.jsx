@@ -19,6 +19,7 @@ const Header = styled(AppBar)`
   background: #fff;
   height: 70px;
   box-shadow: inset 0 -1px 0 0 #dadce0;
+  border: #fff
 `
 
 const Heading = styled(Typography)`
@@ -29,7 +30,6 @@ const Heading = styled(Typography)`
 
 
 const HeaderBar = ({ open, handleDrawer }) => {
-  const logo = 'https://seeklogo.com/images/G/google-keep-logo-0BC92EBBBD-seeklogo.com.png';
   
   return (
     <Header open={open}>
