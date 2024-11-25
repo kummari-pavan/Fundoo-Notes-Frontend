@@ -97,13 +97,11 @@ function NoteCard({ noteDetails }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   useEffect(() => {
-    if (open && titleRef.current) {
-      titleRef.current.focus();
-      const length = titleRef.current.value.length;
-      titleRef.current.setSelectionRange(length, length);
-    }
-  }, [open]);
+    setTitle(noteDetails.title);
+    setDescription(noteDetails.description);
+  }, [noteDetails]);
 
   return (
     <>

@@ -7,7 +7,7 @@ import { Outlet} from "react-router-dom";
 //components
 import HeaderBar from './HeaderBar';
 import SideNavBar from './SideNavBar';
-import NoteContainer from './notes/NotesContainer';
+
 
 const drawerWidth = 240;
 

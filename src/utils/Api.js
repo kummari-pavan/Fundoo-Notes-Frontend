@@ -46,6 +46,27 @@ export const fetchNotes = async () => {
     }
   }
 
+// Function to create a new note
+export const createNoteApiCall = async (noteData) => {
+  try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+          console.error("No token found in localStorage");
+          throw new Error("Token missing from localStorage");
+      }
+      const response = await API.post("/notes", noteData, {
+          headers: {
+              "Authorization": `Bearer ${token}`, // Send token in the Authorization header
+          },
+      });
+      console.log("Note Created Successfully:", response.data); // Log created note
+      return response.data; // Return the created note
+  } catch (error) {
+      console.error("Error creating note:", error.response || error.message);
+      throw error.response?.data?.message || error.message || "Error creating note";
+  }
+};
+
 
 
 

@@ -7,6 +7,7 @@ import Register from "./components/register/Register";
 import EmptyArchive from "./components/archive/EmptyArchive";
 import EmptyTrash from "./components/trash/EmptyTrash";
 import WelcomePage from "./components/start/Start"
+import Notes from "./components/notes/Notes";
 
 function RouteModules(){
     const routes=createBrowserRouter([
@@ -28,7 +29,7 @@ function RouteModules(){
             children:[
                 {
                     path: "notes",
-                    element: <NotesContainer/>
+                    element: <Notes/>
                 },
                 {
                     path: "trash",

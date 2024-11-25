@@ -11,9 +11,11 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
+import { createNoteApiCall } from '../../utils/Api'; 
+
 
 import './AddNoteForm.scss'; 
-function AddNoteForm() {
+function AddNoteForm({ onNoteAdded }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [note, setNote] = useState({
         title: '',
@@ -21,7 +23,11 @@ function AddNoteForm() {
     });
 
     const handleOpen = () => setIsExpanded(true);
-    const handleClose = () => setIsExpanded(false);
+    const handleClose = () => {
+        setIsExpanded(false);
+        setNote({ title: '', description: '' }); // Reset form
+    };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -31,10 +37,19 @@ function AddNoteForm() {
         }));
     };
 
+    const handleSave = async () => {
+        try {
+            const newNote = await createNoteApiCall(note); 
+            onNoteAdded(newNote); 
+            handleClose();
+        } catch (error) {
+            console.error('Error adding note:', error.message);
+        }
+    };
+    
+
     return (
-        <>
-       
-                        
+        <>                 
             <div className="add-notes-container">
                         
                         <Paper 
@@ -113,7 +128,7 @@ function AddNoteForm() {
                                         <IconButton><RedoIcon /></IconButton>
                                     </Box>
                                     <Box display="flex" justifyContent="flex-end" mt={2}>
-                                    <IconButton onClick={handleClose}><DoneIcon /></IconButton>
+                                    <IconButton onClick={handleSave}><DoneIcon /></IconButton>
                                 </Box>
                                 </Box>                        
                             </Box>
