@@ -11,7 +11,7 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
-import { createNoteApiCall } from '../../utils/Api'; 
+import { createNoteApiCall,fetchNotes } from '../../utils/Api'; 
 
 
 import './AddNoteForm.scss'; 

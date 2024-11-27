@@ -55,6 +55,7 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { archiveApiCall,trashApiCall } from '../../utils/Api';
 
 const modalStyle = {
   position: 'absolute',
@@ -89,7 +90,7 @@ const CloseTextButton = styled('span')({
   },
 });
 //function NoteCard({ noteDetails,props }) --> conditional rend
-function NoteCard({ noteDetails }) {
+function NoteCard({ noteDetails,onArchive,onTrash }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(noteDetails.title);
   const [description, setDescription] = useState(noteDetails.description);
@@ -104,6 +105,25 @@ function NoteCard({ noteDetails }) {
     setDescription(noteDetails.description);
   }, [noteDetails]);
 
+  const handleIconClick = async(action)=>{
+    if(action=='archive'){
+      const response= await archiveApiCall(`notes/${noteDetails._id}/archive`);
+      console.log(response);
+      if (response.status === 200) {
+    
+        onArchive(noteDetails._id);
+    }
+    }
+    else if(action=='trash'){
+      const response1= await trashApiCall(`notes/${noteDetails._id}/trash`);
+      console.log(response1)
+      if (response1.status === 200) {
+        onTrash(noteDetails._id);
+    }
+      
+    }
+
+  }
  
   return (
     <>
@@ -131,7 +151,7 @@ function NoteCard({ noteDetails }) {
         <div  style={{
           display:'flex',
           flexDirection:'column',
-          marginBottom:'25px',
+          marginBottom:'40px',
         }} >
         <h4>{noteDetails.title}</h4>
         <p>{noteDetails.description}</p>
@@ -151,10 +171,15 @@ function NoteCard({ noteDetails }) {
           }}
         >
           <IconButton size="small">
-            <ArchiveOutlinedIcon fontSize="small" />
+            <ArchiveOutlinedIcon fontSize="small"
+            onClick={()=>{handleIconClick('archive')}} 
+        
+            />
           </IconButton>
           <IconButton size="small">
-            <DeleteOutlineIcon fontSize="small" />
+            <DeleteOutlineIcon fontSize="small"
+            onClick={()=>{handleIconClick('trash')}} 
+             />
           </IconButton>
           <IconButton size="small">
             <PaletteOutlinedIcon fontSize="small" />
@@ -206,10 +231,15 @@ function NoteCard({ noteDetails }) {
           <IconContainer sx={{
             }}>
             <IconButton size="small">
-              <ArchiveOutlinedIcon fontSize="small" />
+            <ArchiveOutlinedIcon fontSize="small"
+            onClick={()=>{handleIconClick('archive')}} 
+  
+            />
             </IconButton>
             <IconButton size="small">
-              <DeleteOutlineIcon fontSize="small" />
+              <DeleteOutlineIcon fontSize="small"
+              onClick={()=>{handleIconClick('trash')}} 
+               />
             </IconButton>
             <IconButton size="small">
               <PaletteOutlinedIcon fontSize="small" />

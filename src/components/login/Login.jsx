@@ -30,24 +30,18 @@ function Login() {
      console.log(result);
  
     //  const {data} =result
-    const {message,user}=result
+    const {data}=result
 
-    console.log(message)
-    console.log(user)
+    console.log(data.message)
+    console.log(data.user)
  
     //  console.log(data);
      
-        if(message==="Login successful"){
+        if(data.message==="Login successful"){
          navigate("/dashboard/notes")
          alert("User successfully Login")
-        localStorage.setItem('token',user)
+        localStorage.setItem('token',data.user)
         
-       }
-       else if(message==="User is not registered !"){
-         alert("User is not registered !")
-       }
-       else if(message==="User Password Is Wrong !"){
-         alert("User Password Is Wrong !")
        }
        else{
          alert("User not Login")

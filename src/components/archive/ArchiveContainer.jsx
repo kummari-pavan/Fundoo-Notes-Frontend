@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { fetchNotes } from '../../utils/Api';
-import AddNoteForm from './AddNoteForm';
-import EmptyNotes from './EmptyNotes';
-import NoteCard from './NoteCard';
-import './Notes.scss';
-
+import { fetchArchiveNotes } from '../../utils/Api';
+import EmptyArchive from './EmptyArchive';
+import NoteCard from '../notes/NoteCard';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const Notes = () => {
-    const [notesData, setNotesData] = useState([]);
+const ArchiveNotesContainer = () => {
+    const [archiveNotesData, setArchiveNotesData] = useState([]);
 
     useEffect(() => {
         const fetchingNotes = async () => {
             try {
-                const notes = await fetchNotes();
-                console.log('Fetched Notes:', notes.data);
-                setNotesData(notes.data);
+                const notes = await fetchArchiveNotes();
+                console.log('Fetched Notes:', notes.data.data);
+                setArchiveNotesData(notes.data.data);
+                console.log("----------------",archiveNotesData);
             } catch (err) {
                 console.error('Error fetching notes:', err);
             }
@@ -28,24 +26,19 @@ const Notes = () => {
         fetchingNotes();
     }, []);
 
-     const handleNoteAdded = (newNote) => {
-        setNotesData((prevNotes) => [newNote,...prevNotes]);
-    };
-
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
             <Box sx={{ p: 3}}>
                 <DrawerHeader />
-                <AddNoteForm onNoteAdded={handleNoteAdded} />
                 <div className="notes-container">
-                    {notesData.length > 0 ? (
+                    {archiveNotesData.length > 0 ? (
                         <div className="note-card-grid">
-                            {notesData.map((note) => (
+                            {archiveNotesData.map((note) => (
                                 <NoteCard key={note._id} noteDetails={note} />
                             ))}
                         </div>
                     ) : (
-                        <EmptyNotes />
+                        <EmptyArchive />
                     )}
                 </div>
             </Box>
@@ -53,4 +46,5 @@ const Notes = () => {
     );
 };
 
-export default Notes;
+export default ArchiveNotesContainer;
+

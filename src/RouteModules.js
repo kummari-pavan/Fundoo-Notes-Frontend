@@ -1,13 +1,12 @@
 import react from "react";
 import { createBrowserRouter,RouterProvider,useNavigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import NotesContainer from "./components/notes/NotesContainer"
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import EmptyArchive from "./components/archive/EmptyArchive";
-import EmptyTrash from "./components/trash/EmptyTrash";
+import ArchiveContainer from "./components/archive/ArchiveContainer";
 import WelcomePage from "./components/start/Start"
-import Notes from "./components/notes/Notes";
+import NotesContainer from "./components/notes/NotesContainer";
+import TrashNotesContainer from "./components/trash/TrashContainer";
 
 function RouteModules(){
     const routes=createBrowserRouter([
@@ -29,15 +28,15 @@ function RouteModules(){
             children:[
                 {
                     path: "notes",
-                    element: <Notes/>
+                    element: <NotesContainer/>
                 },
                 {
                     path: "trash",
-                    element: <EmptyTrash/>
+                    element: <TrashNotesContainer/>
                 },
                 {
                     path: "archive",
-                    element: <EmptyArchive/>
+                    element: <ArchiveContainer/>
                 }
             ]
         },
