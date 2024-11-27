@@ -56,11 +56,11 @@ export const createNoteApiCall = async (noteData) => {
       }
       const response = await API.post("/notes", noteData, {
           headers: {
-              "Authorization": `Bearer ${token}`, // Send token in the Authorization header
+              "Authorization": `Bearer ${token}`,
           },
       });
-      console.log("Note Created Successfully:", response.data); // Log created note
-      return response.data; // Return the created note
+      console.log("Note Created Successfully:", response.data); 
+      return response.data; 
   } catch (error) {
       console.error("Error creating note:", error.response || error.message);
       throw error.response?.data?.message || error.message || "Error creating note";

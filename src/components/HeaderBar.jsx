@@ -1,5 +1,5 @@
 
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton ,Menu, MenuItem,} from '@mui/material';
 import React, { useState} from "react";
 import {
   InputBase,
@@ -13,6 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 
 const Header = styled(AppBar)`
   z-index: 1201;
@@ -30,6 +31,23 @@ const Heading = styled(Typography)`
 
 
 const HeaderBar = ({ open, handleDrawer }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+
+  //menu handling
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Logout functionality
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear token
+    navigate("/login"); // Redirect to login page
+  };
   
   return (
     <Header open={open}>
@@ -88,10 +106,22 @@ const HeaderBar = ({ open, handleDrawer }) => {
                 <MoreHorizIcon />
               </IconButton>
               <Avatar
-                alt="User Profile"
-                src={`${process.env.PUBLIC_URL}/images/pavan.jpeg`}
-                sx={{ width: 32, height: 32 }}
-              />
+            alt="User Profile"
+            src={`${process.env.PUBLIC_URL}/images/pavan.jpeg`}
+            sx={{ width: 32, height: 32, cursor: "pointer" }}
+            onClick={handleMenuOpen}
+          />
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <MenuItem >View Profile</MenuItem>
+            <MenuItem >Dark Theam</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
             </Box>
           </Toolbar>
     </Header>

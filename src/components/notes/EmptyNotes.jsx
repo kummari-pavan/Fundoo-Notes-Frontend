@@ -10,16 +10,17 @@ const Container = styled(Box)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10vh
+    margin-top: 20vh
+   
 `
 
 const EmptyNotes = () => {
     return (
-        <Container>
+        <Container style={{marginLeft:"350px",marginTop:"130px" }}>
              <img
                 src={`${process.env.PUBLIC_URL}/images/waiting1.png`}
                 alt="Logo"
-                style={{ height: "140px", width: "auto" }}
+                style={{ height: "140px", width: "auto" ,marginLeft:"50px"}}
               />
             <Text>Notes that you add appear here</Text>
         </Container>

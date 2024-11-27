@@ -51,9 +51,10 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PaletteIcon from '@mui/icons-material/Palette';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 const modalStyle = {
   position: 'absolute',
@@ -87,7 +88,7 @@ const CloseTextButton = styled('span')({
     color: 'black',
   },
 });
-
+//function NoteCard({ noteDetails,props }) --> conditional rend
 function NoteCard({ noteDetails }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(noteDetails.title);
@@ -103,22 +104,66 @@ function NoteCard({ noteDetails }) {
     setDescription(noteDetails.description);
   }, [noteDetails]);
 
+ 
   return (
     <>
-      <div onClick={handleOpen} style={{ cursor: 'pointer' }}>
+      <div
+        style={{
+          display:'flex',
+          flexDirection:'column',
+          position: 'relative',
+          paddingLeft: '14px',
+          paddingRight: '14px',
+          border: '1px solid lightgray',
+          borderRadius: '8px',
+          marginBottom: '16px',
+          cursor: 'pointer',
+          overflow: 'hidden', 
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.querySelector(".hover-icons").style.opacity = 1;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.querySelector(".hover-icons").style.opacity = 0;
+        }}
+        onClick={handleOpen}
+      >
+        <div  style={{
+          display:'flex',
+          flexDirection:'column',
+          marginBottom:'25px',
+        }} >
+        <h4>{noteDetails.title}</h4>
+        <p>{noteDetails.description}</p>
+        </div>
+
         <div
+          className="hover-icons"
           style={{
-            padding: '16px',
-            border: '1px solid lightgray',
-            borderRadius: '8px',
-            marginBottom: '16px',
+            position: 'absolute',
+            bottom: '16px',
+            left: '16px',
+            display: 'flex',
+            gap: '15px',
+            opacity: 0, 
+            transition: 'opacity 0.3s ease',
+            marginTop:'10px'
           }}
         >
-          <h4>{noteDetails.title}</h4>
-          <p>{noteDetails.description}</p>
+          <IconButton size="small">
+            <ArchiveOutlinedIcon fontSize="small" />
+          </IconButton>
+          <IconButton size="small">
+            <DeleteOutlineIcon fontSize="small" />
+          </IconButton>
+          <IconButton size="small">
+            <PaletteOutlinedIcon fontSize="small" />
+          </IconButton>
+          <IconButton size="small">
+            <EditOutlinedIcon fontSize="small" />
+          </IconButton>
         </div>
       </div>
-
       <Modal open={open} onClose={handleClose} aria-labelledby="note-modal-title">
         <Box sx={modalStyle}>
           <TextField
@@ -161,13 +206,16 @@ function NoteCard({ noteDetails }) {
           <IconContainer sx={{
             }}>
             <IconButton size="small">
-              <ArchiveIcon fontSize="small" />
+              <ArchiveOutlinedIcon fontSize="small" />
             </IconButton>
             <IconButton size="small">
-              <DeleteIcon fontSize="small" />
+              <DeleteOutlineIcon fontSize="small" />
             </IconButton>
             <IconButton size="small">
-              <PaletteIcon fontSize="small" />
+              <PaletteOutlinedIcon fontSize="small" />
+            </IconButton>
+            <IconButton size="small">
+              <EditOutlinedIcon fontSize="small" />
             </IconButton>
           </IconContainer>
           <CloseTextButton onClick={handleClose}>Close</CloseTextButton>
