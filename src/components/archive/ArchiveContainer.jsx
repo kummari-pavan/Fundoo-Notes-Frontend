@@ -26,6 +26,15 @@ const ArchiveNotesContainer = () => {
         fetchingNotes();
     }, []);
 
+    
+  const handleArchiveToggle = (id, newStatus) => {
+    setArchiveNotesData((prevData) =>
+      prevData.map((note) =>
+        note._id === id ? { ...note, isArchived: newStatus } : note
+      )
+    );
+  };
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
             <Box sx={{ p: 3}}>
@@ -34,7 +43,7 @@ const ArchiveNotesContainer = () => {
                     {archiveNotesData.length > 0 ? (
                         <div className="note-card-grid">
                             {archiveNotesData.map((note) => (
-                                <NoteCard key={note._id} noteDetails={note} />
+                                <NoteCard key={note._id} noteDetails={note} onArchive={handleArchiveToggle} />
                             ))}
                         </div>
                     ) : (

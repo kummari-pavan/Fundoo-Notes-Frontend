@@ -43,8 +43,8 @@ function Register() {
 
         signupApiCall({name,username,email,password},`users`)
             .then((result)=>{
-            const {message}=result
-                if(message==="User registered successfully"){
+            const {data}=result
+                if(data.message==="User registered successfully"){
                     toast.success("User Successfully Created!!", {
                         position: "bottom-center",
                         autoClose: 4000,

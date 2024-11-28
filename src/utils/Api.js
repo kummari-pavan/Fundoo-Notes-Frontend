@@ -64,3 +64,20 @@ export const fetchTrashNotes = async(END_POINT="/notes/trash")=>{
   )
 }
 
+export const deleteApiCall = async(END_POINT) => {
+  return await axios.delete(`${BASE_URL}${END_POINT}`,{
+   headers:{
+       Authorization:getAuth()
+   }
+  })
+}
+
+export const colourApiCall = async(END_POINT,payload) => {
+  return await axios.put(`${BASE_URL}${END_POINT}`,payload,{
+   headers:{
+       Authorization:getAuth()
+   }
+  })
+}
+
+

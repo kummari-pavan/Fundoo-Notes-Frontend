@@ -26,6 +26,15 @@ const TrashNotesContainer = () => {
         fetchingNotes();
     }, []);
 
+    const handleTrashToggle = (id, newStatus) => {
+        setTrashNotesData((prevData) =>
+          prevData.map((note) =>
+            note._id === id ? { ...note, isArchived: newStatus } : note
+          )
+        );
+      };
+    
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
             <Box sx={{ p: 3}}>
@@ -34,7 +43,7 @@ const TrashNotesContainer = () => {
                     {trashNotesData.length > 0 ? (
                         <div className="note-card-grid">
                             {trashNotesData.map((note) => (
-                                <NoteCard key={note._id} noteDetails={note} />
+                                <NoteCard key={note._id} noteDetails={note} onTrash={handleTrashToggle}/>
                             ))}
                         </div>
                     ) : (

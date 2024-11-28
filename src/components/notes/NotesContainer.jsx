@@ -52,9 +52,11 @@ const NotesContainer = () => {
                 <div className="notes-container">
                     {notesData.length > 0 ? (
                         <div className="note-card-grid">
+
                             {notesData.filter((note) => !note.isArchive && note.isTrash === false).map((note) => (
                                 <NoteCard key={note._id} noteDetails={note} onArchive={handleArchiveNote} onTrash={handleTrashNote}/>
                             ))}
+                            
                         </div>
                     ) : (
                         <EmptyNotes />

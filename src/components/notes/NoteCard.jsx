@@ -8,10 +8,13 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { archiveApiCall,trashApiCall } from '../../utils/Api';
+import { archiveApiCall,trashApiCall ,deleteApiCall} from '../../utils/Api';
 import {Popper, Paper} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
+import { useLocation,useNavigate } from 'react-router-dom';
+import { RestoreFromTrashOutlined as Restore, DeleteForeverOutlined as Delete } from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 
 const modalStyle = {
   position: 'absolute',
@@ -52,36 +55,57 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(noteDetails.title);
   const [description, setDescription] = useState(noteDetails.description);
- // State to handle the anchor element for the color menu
  const [colorMenuAnchor, setColorMenuAnchor] = useState(null);
+ const [backgroundColor, setBackgroundColor] = useState(noteDetails.color || '#FFFFFF');
   const titleRef = useRef(null);
+  const location123=useLocation()
 
+  const isArchive = noteDetails.isArchive;
+  const isTrash = noteDetails.isTrash;
+
+  const navigate=useNavigate()
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  
+  useEffect(()=>{
+    console.log(location123)
+
+  },[])
 
   useEffect(() => {
     setTitle(noteDetails.title);
     setDescription(noteDetails.description);
+    setBackgroundColor(noteDetails.color || '#FFFFFF');
   }, [noteDetails]);
 
   const handleIconClick = async(action)=>{
-    if(action==='archive'){
-      const response= await archiveApiCall(`notes/${noteDetails._id}/archive`);
-      console.log(response);
-      if (response.status === 200) {
-    
-        onArchive(noteDetails._id);
+    if(action==='archive' || action === 'unarchive'){
+        const response= await archiveApiCall(`notes/${noteDetails._id}/archive`);
+        console.log(response);
+        if (response.status === 200) {
+      
+          onArchive(noteDetails._id);
+          navigate("/dashboard/archive")
+        }
     }
-    }
-    else if(action==='trash'){
+    else if(action==='trash' || action === 'restore'){
       const response1= await trashApiCall(`notes/${noteDetails._id}/trash`);
       console.log(response1)
       if (response1.status === 200) {
         onTrash(noteDetails._id);
+        navigate("/dashboard/trash")
+      }  
     }
-      
-    }
+    else if (action === 'deleteForever') {
+      const response = await  deleteApiCall(`notes/${noteDetails._id}/`)
+      if (response.status === 200) {
+        //onPermanentDelete(noteDetails._id);
+        console.log("Note Deleted",noteDetails.title)
+        navigate("/dashboard/trash")
+      }
+    } 
 
   }
 
@@ -95,6 +119,7 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
 
   const handleColorChange = (color) => {
     console.log('Color changed to:', color);
+    setBackgroundColor(color);// Update the background color state
     handleColorMenuClose(); 
   };
 
@@ -105,22 +130,13 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
     '#DDA0DD', '#90EE90', '#ADD8E6',
   ];
 
+
+
   return (
     <>
      
       <div
-        style={{
-          display:'flex',
-          flexDirection:'column',
-          position: 'relative',
-          paddingLeft: '14px',
-          paddingRight: '14px',
-          border: '1px solid lightgray',
-          borderRadius: '8px',
-          marginBottom: '16px',
-          cursor: 'pointer',
-          overflow: 'hidden', 
-        }}
+        style={{ display:'flex',flexDirection:'column',position: 'relative',paddingLeft: '14px',paddingRight: '14px',border: '1px solid lightgray', borderRadius: '8px', marginBottom: '16px', cursor: 'pointer', overflow: 'hidden',backgroundColor: backgroundColor,  }}
         onMouseEnter={(e) => {
           e.currentTarget.querySelector(".hover-icons").style.opacity = 1;
         }}
@@ -129,46 +145,68 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
         }}
         onClick={handleOpen}
       >
-        <div  style={{
-          display:'flex',
-          flexDirection:'column',
-          marginBottom:'40px',
-        }} >
+        <div  style={{display:'flex' ,flexDirection:'column', marginBottom:'40px',}} >
         <h4>{noteDetails.title}</h4>
         <p>{noteDetails.description}</p>
         </div>
 
-        <div
-          className="hover-icons"
-          style={{
-            position: 'absolute',
-            bottom: '16px',
-            left: '16px',
-            display: 'flex',
-            gap: '15px',
-            opacity: 0, 
-            transition: 'opacity 0.3s ease',
-            marginTop:'10px'
-           
-          }}onClick={handleClose}
-        >
-          <IconButton size="small">
-            <ArchiveOutlinedIcon fontSize="small"
-           onClick={(e) => { e.stopPropagation(); handleIconClick('archive'); }} 
-        
-            />
-          </IconButton>
+        <div className="hover-icons" style={{position: 'absolute', bottom: '16px', left: '16px',  display: 'flex', gap: '15px', opacity: 0,  transition: 'opacity 0.3s ease', marginTop:'10px'}}onClick={handleClose}>
+
+          {/*[PAVAN] Conditional Rendering For trash and untrash  ---------------------------------------------------------------*/}
+
+          {isTrash ? (
+            <>
+              <Tooltip title="Restore">
+                <IconButton
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleIconClick('restore');
+                  }}
+                >
+                  <Restore fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete Forever">
+                <IconButton
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleIconClick('deleteForever');
+                  }}
+                >
+                  <Delete fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </>
+          ) : (
+            <>
+               {/*[PAVAN] Conditional Rendering For archive and Archive ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/}
+              {isArchive ? (
+            <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleIconClick('unarchive'); }}>
+              <UnarchiveOutlinedIcon fontSize="small" />
+            </IconButton>
+          ) : (
+            <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleIconClick('archive'); }}>
+              <ArchiveOutlinedIcon fontSize="small" />
+            </IconButton>
+          )}
+          
           <IconButton size="small">
             <DeleteOutlineIcon fontSize="small"
-            onClick={(e) => { e.stopPropagation(); handleIconClick('trash'); }}
-             />
+            onClick={(e) => { e.stopPropagation(); handleIconClick('trash'); }}/>
           </IconButton>
+          
           <IconButton size="small">
             <PaletteOutlinedIcon fontSize="small"  onClick={(e) => { e.stopPropagation(); handleColorMenuOpen(e); }}/>
           </IconButton>
           <IconButton size="small"  >
             <EditOutlinedIcon fontSize="small" onClick={(e) => { e.stopPropagation(); }} />
           </IconButton>
+            </>
+          )}
+
+
         </div>
         
       </div>
@@ -176,22 +214,8 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
 
       <Popper open={Boolean(colorMenuAnchor)} anchorEl={colorMenuAnchor} placement="bottom-start">
           <Paper elevation={3} style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', width: '220px', borderRadius: '6px', }}>
-            {/* Rendering color squares as 2 rows, 10 colors per row */}
             {colors.map((color, index) => (
-              <MenuItem
-                key={index}
-                onClick={() => handleColorChange(color)}
-                style={{
-                  backgroundColor: color,
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '4px',
-                  margin: '2px',
-                  padding: '0',
-                  minWidth: '0',
-                  display: 'inline-block'
-                }}
-              />
+              <MenuItem key={index} onClick={() => handleColorChange(color)} style={{ backgroundColor:color, width: '20px' ,height: '20px',borderRadius: '4px', margin: '2px',padding: '0', minWidth: '0',display: 'inline-block'}} />
             ))}
           </Paper>
         </Popper>
