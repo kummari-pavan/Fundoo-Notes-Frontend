@@ -25,7 +25,7 @@ const TrashNotesContainer = () => {
         };
         fetchingNotes();
     }, []);
-
+    
     const handleTrashToggle = (id, newStatus) => {
         setTrashNotesData((prevData) =>
           prevData.map((note) =>
@@ -34,7 +34,6 @@ const TrashNotesContainer = () => {
         );
       };
     
-
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
             <Box sx={{ p: 3}}>
