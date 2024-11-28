@@ -1,50 +1,3 @@
-// import { Card, CardContent, CardActions, Typography } from '@mui/material';
-// import { styled } from '@mui/material/styles';
-// import { ArchiveOutlined as Archive, DeleteOutlineOutlined as Delete } from '@mui/icons-material';
-
-// const StyledCard = styled(Card)`
-//     border: 1px solid red;
-//     border-radius: 8px;
-//     margin: 8px;
-//     box-shadow: none;
-//     padding:5px
-// `
-
-// const NoteCard = ({ noteDetails }) => {
-
-//     console.log(noteDetails)
-//     const archiveNote = (noteDetails) => {
-       
-//     }
-//     const deleteNote = (noteDetails) => {
-       
-//     }
-
-//     return (
-//         <StyledCard>
-//             <div className='card-container'>
-//                 <CardContent >
-//                     <Typography>{noteDetails.title}</Typography>
-//                     <Typography>{noteDetails.description}</Typography>
-//                 </CardContent>
-//                 <CardActions>
-//                     <Archive 
-//                         fontSize="small" 
-//                         style={{ marginLeft: 'auto' }} 
-//                         onClick={() => archiveNote(noteDetails)}
-//                     />
-//                     <Delete 
-//                         fontSize="small"
-//                         onClick={() => deleteNote(noteDetails)}
-//                     />
-//                 </CardActions>
-//             </div>
-//         </StyledCard>
-//     )
-// }
-
-// export default NoteCard;
-
 import React, { useState, useEffect, useRef } from 'react';
 import { styled } from '@mui/material/styles';
 import Modal from '@mui/material/Modal';
@@ -56,6 +9,9 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { archiveApiCall,trashApiCall } from '../../utils/Api';
+import {Popper, Paper} from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 const modalStyle = {
   position: 'absolute',
@@ -89,11 +45,15 @@ const CloseTextButton = styled('span')({
     color: 'black',
   },
 });
+
+
 //function NoteCard({ noteDetails,props }) --> conditional rend
 function NoteCard({ noteDetails,onArchive,onTrash }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(noteDetails.title);
   const [description, setDescription] = useState(noteDetails.description);
+ // State to handle the anchor element for the color menu
+ const [colorMenuAnchor, setColorMenuAnchor] = useState(null);
   const titleRef = useRef(null);
 
   const handleOpen = () => setOpen(true);
@@ -106,7 +66,7 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
   }, [noteDetails]);
 
   const handleIconClick = async(action)=>{
-    if(action=='archive'){
+    if(action==='archive'){
       const response= await archiveApiCall(`notes/${noteDetails._id}/archive`);
       console.log(response);
       if (response.status === 200) {
@@ -114,7 +74,7 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
         onArchive(noteDetails._id);
     }
     }
-    else if(action=='trash'){
+    else if(action==='trash'){
       const response1= await trashApiCall(`notes/${noteDetails._id}/trash`);
       console.log(response1)
       if (response1.status === 200) {
@@ -124,9 +84,30 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
     }
 
   }
- 
+
+   const handleColorMenuOpen = (event) => {
+    setColorMenuAnchor(event.currentTarget); 
+  };
+
+  const handleColorMenuClose = () => {
+    setColorMenuAnchor(null); 
+  };
+
+  const handleColorChange = (color) => {
+    console.log('Color changed to:', color);
+    handleColorMenuClose(); 
+  };
+
+  const colors = [
+    '#FFB6C1', '#B2EBF2', '#FFFACD', '#D3F8E2', '#F0E68C',
+    '#FFEB3B', '#FFD700', '#E0BBE4', '#F5F5F5', '#FF6347',
+    '#98FB98', '#AFEEEE', '#FF1493', '#DA70D6', '#FFE4E1',
+    '#DDA0DD', '#90EE90', '#ADD8E6',
+  ];
+
   return (
     <>
+     
       <div
         style={{
           display:'flex',
@@ -168,27 +149,53 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
             opacity: 0, 
             transition: 'opacity 0.3s ease',
             marginTop:'10px'
-          }}
+           
+          }}onClick={handleClose}
         >
           <IconButton size="small">
             <ArchiveOutlinedIcon fontSize="small"
-            onClick={()=>{handleIconClick('archive')}} 
+           onClick={(e) => { e.stopPropagation(); handleIconClick('archive'); }} 
         
             />
           </IconButton>
           <IconButton size="small">
             <DeleteOutlineIcon fontSize="small"
-            onClick={()=>{handleIconClick('trash')}} 
+            onClick={(e) => { e.stopPropagation(); handleIconClick('trash'); }}
              />
           </IconButton>
           <IconButton size="small">
-            <PaletteOutlinedIcon fontSize="small" />
+            <PaletteOutlinedIcon fontSize="small"  onClick={(e) => { e.stopPropagation(); handleColorMenuOpen(e); }}/>
           </IconButton>
-          <IconButton size="small">
-            <EditOutlinedIcon fontSize="small" />
+          <IconButton size="small"  >
+            <EditOutlinedIcon fontSize="small" onClick={(e) => { e.stopPropagation(); }} />
           </IconButton>
         </div>
+        
       </div>
+
+
+      <Popper open={Boolean(colorMenuAnchor)} anchorEl={colorMenuAnchor} placement="bottom-start">
+          <Paper elevation={3} style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', width: '220px', borderRadius: '6px', }}>
+            {/* Rendering color squares as 2 rows, 10 colors per row */}
+            {colors.map((color, index) => (
+              <MenuItem
+                key={index}
+                onClick={() => handleColorChange(color)}
+                style={{
+                  backgroundColor: color,
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '4px',
+                  margin: '2px',
+                  padding: '0',
+                  minWidth: '0',
+                  display: 'inline-block'
+                }}
+              />
+            ))}
+          </Paper>
+        </Popper>
+        
       <Modal open={open} onClose={handleClose} aria-labelledby="note-modal-title">
         <Box sx={modalStyle}>
           <TextField
@@ -251,6 +258,8 @@ function NoteCard({ noteDetails,onArchive,onTrash }) {
           <CloseTextButton onClick={handleClose}>Close</CloseTextButton>
         </Box>
       </Modal>
+
+
     </>
   );
 }
