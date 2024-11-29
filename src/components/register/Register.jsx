@@ -83,7 +83,7 @@ function Register() {
             })
             .catch((error)=>{
             console.log(error)
-            toast.error("Backend Error!!", {
+            toast.error("Server Error!!", {
                 position: "bottom-center",
                 autoClose: 4000,
                 hideProgressBar: false,

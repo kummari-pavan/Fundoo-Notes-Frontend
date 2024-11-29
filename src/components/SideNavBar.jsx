@@ -20,7 +20,16 @@ const SideNavBar = () => {
           }}>
         {
             navList.map(list => (
-                <ListItem button key={list.id}>
+                <ListItem button key={list.id}
+                sx={{
+                    '&:hover': {
+                        backgroundColor: "rgb(254, 239, 195);",
+                        borderRadius: '6px',    
+                        transition: 'background-color 0.3s', 
+                    },
+                }}
+                
+                >
                     <Link to={`${list.route}`} style={{ textDecoration: 'none', display: 'flex', color: 'inherit'}}>
                         <ListItemIcon style={{ alignItems: 'center'}}>
                             {list.icon}

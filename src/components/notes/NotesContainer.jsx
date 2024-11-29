@@ -29,32 +29,52 @@ const NotesContainer = () => {
         fetchingNotes();
     }, []);
 
-     const handleNoteAdded = (newNote) => {
-        setNotesData((prevNotes) => [newNote,...prevNotes]);
-    };
-    const handleArchiveNote = (noteId) => {
-        setNotesData((prevNotes) =>
-            prevNotes.filter((note) => note._id !== noteId && note.isArchive === false  && note.isTrash === false)
-        );
-    };
+    //  const handleNoteAdded = (newNote) => {
+    //     setNotesData((prevNotes) => [newNote,...prevNotes]);
+    // };
+
+    const handleNotesList = (data, action) => {
+        console.log(data);
+        // setNotesList(data)
+        if(action == "add") setNotesData([...notesData, data])
+        else if(action== "archive" || action== "trash"){
+           setNotesData(notesData.filter((note) => note._id !== data._id))
+        }
+        else if(action== "color" || action=="edit") {
+
+            const updatedList = notesData.map((note) => {
+              if(note._id == data._id) {
+                return data
+              }
+              return note
+            })
+            setNotesData(updatedList)
+        }    
+            
+    }
+    // const handleArchiveNote = (noteId) => {
+    //     setNotesData((prevNotes) =>
+    //         prevNotes.filter((note) => note._id !== noteId && note.isArchive === false  && note.isTrash === false)
+    //     );
+    // };
    
-    const handleTrashNote = (noteId) => {
-        setNotesData((prevNotes) =>
-            prevNotes.filter((note) => note._id !== noteId && note.isArchive === false  && note.isTrash === false)
-        );
-    };
+    // const handleTrashNote = (noteId) => {
+    //     setNotesData((prevNotes) =>
+    //         prevNotes.filter((note) => note._id !== noteId && note.isArchive === false  && note.isTrash === false)
+    //     );
+    // };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
             <Box sx={{ p: 3}}>
                 <DrawerHeader />
-                <AddNoteForm onNoteAdded={handleNoteAdded} />
+                <AddNoteForm onNoteAdded={handleNotesList} />
                 <div className="notes-container">
                     {notesData.length > 0 ? (
                         <div className="note-card-grid">
 
                             {notesData.filter((note) => !note.isArchive && note.isTrash === false).map((note) => (
-                                <NoteCard key={note._id} noteDetails={note} onArchive={handleArchiveNote} onTrash={handleTrashNote}/>
+                                <NoteCard key={note._id} noteDetails={note} updateNoteList={handleNotesList}/>
                             ))}
                             
                         </div>

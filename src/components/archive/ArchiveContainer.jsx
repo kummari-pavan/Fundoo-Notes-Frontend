@@ -27,14 +27,32 @@ const ArchiveNotesContainer = () => {
     }, []);
 
     
-  const handleArchiveToggle = (id, newStatus) => {
-    setArchiveNotesData((prevData) =>
-      prevData.map((note) =>
-        note._id === id ? { ...note, isArchived: newStatus } : note
-      )
-    );
-  };
+//   const handleArchiveToggle = (id, newStatus) => {
+//     setArchiveNotesData((prevData) =>
+//       prevData.filter((note) =>
+//         note._id !== id 
+//       )
+//     );
+//   };
 
+  const handleNotesList = (data, action) => {
+    console.log(data);
+
+    if(action== "unarchive" || action== "trash"){
+        setArchiveNotesData(archiveNotesData.filter((note) => note._id !== data._id))
+    }
+    else if(action== "color") {
+
+        const updatedList = archiveNotesData.map((note) => {
+          if(note.id == data.id) {
+            return data
+          }
+          return note
+        })
+        setArchiveNotesData(updatedList)
+    }    
+        
+}
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
             <Box sx={{ p: 3}}>
@@ -43,7 +61,7 @@ const ArchiveNotesContainer = () => {
                     {archiveNotesData.length > 0 ? (
                         <div className="note-card-grid">
                             {archiveNotesData.map((note) => (
-                                <NoteCard key={note._id} noteDetails={note} onArchive={handleArchiveToggle} />
+                                <NoteCard key={note._id} noteDetails={note} updateNoteList={handleNotesList} />
                             ))}
                         </div>
                     ) : (

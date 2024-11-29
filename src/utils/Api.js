@@ -80,4 +80,10 @@ export const colourApiCall = async(END_POINT,payload) => {
   })
 }
 
-
+export const updateNotesApiCall = async(END_POINT,payload) => {
+  return await axios.put(`${BASE_URL}${END_POINT}`,payload,{
+   headers:{
+       Authorization:getAuth()
+   }
+  })
+}

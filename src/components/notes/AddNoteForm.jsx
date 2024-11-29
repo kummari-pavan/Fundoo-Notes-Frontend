@@ -12,22 +12,18 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
 import { createNoteApiCall,fetchNotes } from '../../utils/Api'; 
-
-
 import './AddNoteForm.scss'; 
 function AddNoteForm({ onNoteAdded }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [note, setNote] = useState({
         title: '',
-        description: ''
-    });
+        description: '' });
 
     const handleOpen = () => setIsExpanded(true);
     const handleClose = () => {
         setIsExpanded(false);
         setNote({ title: '', description: '' }); // Reset form
     };
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,47 +36,26 @@ function AddNoteForm({ onNoteAdded }) {
     const handleSave = async () => {
         try {
             const newNote = await createNoteApiCall(note); 
-            onNoteAdded(newNote); 
+            onNoteAdded(newNote.data.data,"add"); 
             handleClose();
         } catch (error) {
             console.error('Error adding note:', error.message);
         }
     };
     
-
     return (
         <>                 
             <div className="add-notes-container">
-                        
-                        <Paper 
-                            elevation={3} 
-                            className="input-bar" 
-                            onClick={handleOpen}
-                            sx={{
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                padding: '8px 16px', 
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                            }} >
-                            <img
-                                src={`${process.env.PUBLIC_URL}/images/buld.jpg`}
-                                alt="Logo"
-                                style={{ height: "40px", width: "auto",paddingRight:"5px" }}
-                            />
+                        <Paper elevation={3} className="input-bar"  onClick={handleOpen} sx={{display: 'flex',  alignItems: 'center', padding: '8px 16px', borderRadius: '8px',cursor: 'pointer',}} >
+                            <img src={`${process.env.PUBLIC_URL}/images/buld.jpg`} alt="Logo" style={{ height: "40px", width: "auto",paddingRight:"5px" }}/>
                             <InputBase placeholder="Take a note..." fullWidth sx={{ flex: 1,cursor: 'pointer' }} onClick={handleOpen} />
                             <IconButton><AddIcon /></IconButton>
                             <IconButton><EditIcon /></IconButton>
                             <IconButton><ImageIcon /></IconButton>
                         </Paper>
 
-                        <Modal
-                            open={isExpanded}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description" >
-                            <Box
-                                sx={{
+                        <Modal open={isExpanded} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
+                            <Box sx={{
                                     position: 'absolute',
                                     top: '50%',
                                     left: '50%',
@@ -91,8 +66,7 @@ function AddNoteForm({ onNoteAdded }) {
                                     boxShadow: 24,
                                     p: 4,
                                     borderRadius: '8px'
-                                }}
-                            >
+                                }} >
                                 <TextField
                                     variant="outlined"
                                     placeholder="Title"
@@ -100,8 +74,7 @@ function AddNoteForm({ onNoteAdded }) {
                                     name="title"
                                     value={note.title}
                                     onChange={handleChange}
-                                    sx={{ mb: 2 }}
-                                />
+                                    sx={{ mb: 2 }} />
                                 <TextField
                                     variant="outlined"
                                     placeholder="Take a note..."
@@ -110,14 +83,12 @@ function AddNoteForm({ onNoteAdded }) {
                                     rows={4}
                                     name="description"
                                     value={note.description}
-                                    onChange={handleChange}
-                                />
+                                    onChange={handleChange} />
                                 <Box sx={{
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'center',
-                                        mt: 3,
-                                    }}>
+                                        mt: 3, }}>
                                     <Box sx={{ display: 'flex', gap: 1 }}>
                                         <IconButton><NotificationsIcon /></IconButton>
                                         <IconButton><PersonAddIcon /></IconButton>
@@ -134,10 +105,7 @@ function AddNoteForm({ onNoteAdded }) {
                             </Box>
                         </Modal>
             </div>            
-      
-        
-      
-        </>
+       </>
     );
     
 }

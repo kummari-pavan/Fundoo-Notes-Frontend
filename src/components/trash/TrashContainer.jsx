@@ -25,14 +25,33 @@ const TrashNotesContainer = () => {
         };
         fetchingNotes();
     }, []);
+
+    // const handleTrashToggle = (id, newStatus) => {
+    //     setTrashNotesData((prevData) =>
+    //       prevData.map((note) =>
+    //         note._id === id ? { ...note, isArchived: newStatus } : note
+    //       )
+    //     );
+    //   };
+
+    const handleNotesList = (data, action) => {
+        console.log(data);
     
-    const handleTrashToggle = (id, newStatus) => {
-        setTrashNotesData((prevData) =>
-          prevData.map((note) =>
-            note._id === id ? { ...note, isArchived: newStatus } : note
-          )
-        );
-      };
+        if(action== "restore" || action== "deleteForever"){
+            setTrashNotesData(trashNotesData.filter((note) => note._id !== data._id))
+        }
+        else if(action== "color") {
+    
+            const updatedList = trashNotesData.map((note) => {
+              if(note.id == data.id) {
+                return data
+              }
+              return note
+            })
+            setTrashNotesData(updatedList)
+        }    
+            
+    }
     
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
@@ -42,7 +61,7 @@ const TrashNotesContainer = () => {
                     {trashNotesData.length > 0 ? (
                         <div className="note-card-grid">
                             {trashNotesData.map((note) => (
-                                <NoteCard key={note._id} noteDetails={note} onTrash={handleTrashToggle}/>
+                                <NoteCard key={note._id} noteDetails={note} updateNoteList={handleNotesList}/>
                             ))}
                         </div>
                     ) : (

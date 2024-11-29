@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './Login.scss';
 import { Link,useNavigate } from 'react-router-dom'; 
 import { loginApiCall } from '../../utils/Api';
-
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   
@@ -38,19 +39,55 @@ function Login() {
     //  console.log(data);
      
         if(data.message==="Login successful"){
-         navigate("/dashboard/notes")
-         alert("User successfully Login")
-        localStorage.setItem('token',data.user)
-        
+          
+          
+          localStorage.setItem('token',data.user)
+
+          toast.success("Login Successfully !!", {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+
+          setTimeout(() => {
+            navigate("/dashboard/notes")
+        }, 2000);
+          
        }
        else{
-         alert("User not Login")
+        toast.error("User Not Logged!", {
+          position: "bottom-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
        }
    
     })
     .catch((error)=>{
         console.log(error)
-        alert("User not Login due to backend Error")
+        toast.error("Server Error!!", {
+          position: "bottom-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
     })
 
     setErrors(newErrors);
@@ -83,6 +120,21 @@ function Login() {
         </div>
       </div>
     </div>
+
+    <ToastContainer
+            position="bottom-center"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover={false}
+            theme="colored"
+            transition={Bounce}
+            />
+
      </div>
     
   );
