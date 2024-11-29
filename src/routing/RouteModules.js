@@ -1,12 +1,15 @@
-import react from "react";
-import { createBrowserRouter,RouterProvider,useNavigate } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
-import Login from "./components/login/Login";
-import Register from "./components/register/Register";
-import ArchiveContainer from "./components/archive/ArchiveContainer";
-import WelcomePage from "./components/start/Start"
-import NotesContainer from "./components/notes/NotesContainer";
-import TrashNotesContainer from "./components/trash/TrashContainer";
+import { createBrowserRouter,RouterProvider } from "react-router-dom";
+import Dashboard from "../components/Dashboard";
+import Login from "../components/login/Login";
+import Register from "../components/register/Register";
+import ArchiveContainer from "../components/archive/ArchiveContainer";
+import WelcomePage from "../components/start/Start"
+import NotesContainer from "../components/notes/NotesContainer";
+import TrashNotesContainer from "../components/trash/TrashContainer";
+import { AuthRoute } from "./AuthRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
+
+
 
 function RouteModules(){
     const routes=createBrowserRouter([
@@ -16,15 +19,15 @@ function RouteModules(){
         },
         {
             path: "login",
-            element: <Login/>
+            element: <AuthRoute><Login/></AuthRoute>
         },
         {
             path: "register",
-            element: <Register/>
+            element: <AuthRoute><Register/></AuthRoute>
         },
         {
             path: "dashboard",
-            element: <Dashboard/>,
+            element:<ProtectedRoute><Dashboard/></ProtectedRoute>,
             children:[
                 {
                     path: "notes",
