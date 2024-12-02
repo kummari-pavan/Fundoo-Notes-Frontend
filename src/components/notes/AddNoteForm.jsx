@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Box, InputBase, IconButton, Modal, TextField, Paper } from '@mui/material';
+import { Box, InputBase, IconButton, Modal, TextField, Paper,
+    Popper,
+    MenuItem,
+    ClickAwayListener } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
 import ImageIcon from '@mui/icons-material/Image';
@@ -17,13 +20,24 @@ function AddNoteForm({ onNoteAdded }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [note, setNote] = useState({
         title: '',
-        description: '' });
+        description: '' ,
+        color: "#ffffff"
+    });
 
     const handleOpen = () => setIsExpanded(true);
     const handleClose = () => {
         setIsExpanded(false);
-        setNote({ title: '', description: '' }); // Reset form
+        setNote({ title: '', description: '' ,color: "#ffffff" });
     };
+
+    const [colorAnchor, setColorAnchor] = useState(null);
+
+    const colors = [
+        '#F8F9FA', '#FDFEFE', '#EBF5FB', '#E8F8F5', '#F5EEF8', 
+        '#FAF2E9', '#F9EBEA', '#EAECEE', '#FDEDEC', 
+        '#FFDEE9', '#B5FFFC', '#FFFCF2', '#D3CCE3', '#E9E4F0',
+        '#FFEBE0', '#F7D9C4', '#D0F4DE', '#A3D5D3' 
+      ];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,6 +46,16 @@ function AddNoteForm({ onNoteAdded }) {
             [name]: value
         }));
     };
+
+    const handleColorMenuToggle = (event) => {
+        setColorAnchor(event.currentTarget);
+    };
+    
+    
+      const handleColorChange = (color) => {
+        setNote((prevNote) => ({ ...prevNote, color }));
+        setColorAnchor(null); 
+      };
 
     const handleSave = async () => {
         try {
@@ -61,7 +85,8 @@ function AddNoteForm({ onNoteAdded }) {
                                     left: '50%',
                                     transform: 'translate(-50%, -50%)',
                                     width: 400,
-                                    bgcolor: 'background.paper',
+                                    bgcolor: note.color,
+                                    // bgcolor: 'background.paper',
                                     border: '2px solid gray;',
                                     boxShadow: 24,
                                     p: 4,
@@ -92,8 +117,43 @@ function AddNoteForm({ onNoteAdded }) {
                                     <Box sx={{ display: 'flex', gap: 1 }}>
                                         <IconButton><NotificationsIcon /></IconButton>
                                         <IconButton><PersonAddIcon /></IconButton>
-                                        <IconButton><PaletteIcon /></IconButton>
-                                        <IconButton><ArchiveIcon /></IconButton> 
+
+                                        <IconButton onClick={handleColorMenuToggle}><PaletteIcon /></IconButton>
+                                        <Popper
+                                        open={Boolean(colorAnchor)}
+                                        anchorEl={colorAnchor}
+                                        placement="bottom"
+                                        style={{ zIndex: 1300 }} // Ensure it is above other components
+                                        >
+                                        <ClickAwayListener onClickAway={() => setColorAnchor(null)}>
+                                            <Paper
+                                            elevation={3}
+                                            style={{
+                                                display: "flex",
+                                                flexWrap: "wrap",
+                                                width: "150px",
+                                                padding: "8px",
+                                                borderRadius: "8px",
+                                            }}
+                                            >
+                                            {colors.map((color, index) => (
+                                            <MenuItem
+                                                    key={index}
+                                                    onClick={() => handleColorChange(color)}
+                                                    style={{
+                                                        backgroundColor: color,
+                                                        width: "24px", 
+                                                        height: "24px",
+                                                        borderRadius: "50%", 
+                                                        margin: "4px",
+                                                        padding: "0",
+                                                        cursor: "pointer",
+                                                    }}
+                                                />
+                                            ))}
+                                            </Paper>
+                                        </ClickAwayListener>
+                                        </Popper>
                                         <IconButton><MoreVertIcon /></IconButton>
                                         <IconButton><UndoIcon /></IconButton>
                                         <IconButton><RedoIcon /></IconButton>

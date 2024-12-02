@@ -6,5 +6,5 @@ export const AuthRoute =({children})=>{
     if(auth === null || auth === undefined){
         return children
     }
-    return <Navigate to ='/login/'></Navigate>
+    return <Navigate to ='/dashboard/'></Navigate>
 }

@@ -8,7 +8,7 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { archiveApiCall,trashApiCall ,deleteApiCall,colourApiCall,updateNotesApiCall} from '../../utils/Api';
-import {Popper, Paper} from '@mui/material';
+import {Popper, Paper,ClickAwayListener} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import { useLocation,useNavigate } from 'react-router-dom';
@@ -30,6 +30,7 @@ function NoteCard({ noteDetails,updateNoteList }) {
   const [colorMenuAnchor, setColorMenuAnchor] = useState(null);
   const [backgroundColor, setBackgroundColor] = useState(noteDetails.color || '#FFFFFF');
   const [isHovered, setIsHovered] = useState(false);
+  const [modalColorMenuAnchor, setModalColorMenuAnchor] = useState(null);
   const titleRef = useRef(null);
   const location123=useLocation()
 
@@ -89,6 +90,16 @@ function NoteCard({ noteDetails,updateNoteList }) {
   const handleColorMenuClose = () => {
     setColorMenuAnchor(null); 
   };
+
+  // Scoped handler for modal color menu
+const handleModalColorMenuOpen = (event) => {
+  setModalColorMenuAnchor(event.currentTarget);
+};
+
+const handleModalColorMenuClose = () => {
+  setModalColorMenuAnchor(null);
+};
+
   const handleColorChange = (color) => {
     colourApiCall(`notes/${noteDetails._id}`,{color:color})
     console.log('Color changed to:', color);
@@ -180,11 +191,13 @@ function NoteCard({ noteDetails,updateNoteList }) {
         </div>   
       </div>
       <Popper open={Boolean(colorMenuAnchor)} anchorEl={colorMenuAnchor} placement="bottom-start">
+          <ClickAwayListener onClickAway={handleColorMenuClose}>
           <Paper elevation={3} style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', width: '220px', borderRadius: '6px', }}>
             {colors.map((color, index) => (
               <MenuItem key={index} onClick={() => handleColorChange(color)} style={{ backgroundColor:color, width: '20px' ,height: '20px',borderRadius: '4px', margin: '2px',padding: '0', minWidth: '0',display: 'inline-block'}} />
             ))}
           </Paper>
+          </ClickAwayListener>
       </Popper>
         
       <Modal open={open} onClose={handleClose} aria-labelledby="note-modal-title">
@@ -235,13 +248,57 @@ function NoteCard({ noteDetails,updateNoteList }) {
               <DeleteOutlineIcon fontSize="small"
                onClick={()=>{handleIconClick('trash')}} />
             </IconButton>
-            <IconButton size="small">
-              <PaletteOutlinedIcon fontSize="small" />
+            <IconButton size="small"  onClick={(e) => { e.stopPropagation(); handleModalColorMenuOpen(e)}}>
+              <PaletteOutlinedIcon fontSize="small"  />
             </IconButton>
           </IconContainer>
+          <Popper
+            open={Boolean(modalColorMenuAnchor)}
+            anchorEl={modalColorMenuAnchor}
+            placement="bottom-start"
+            style={{ zIndex: 1301 }} // Ensure it's above the modal
+          >
+            {modalColorMenuAnchor && ( // Render content only if anchorEl exists
+            <ClickAwayListener onClickAway={handleModalColorMenuClose}>
+              <Paper
+                elevation={3}
+                style={{
+                  padding: '10px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  width: '220px',
+                  borderRadius: '6px',
+                }}
+              >
+                {colors.map((color, index) => (
+                  <MenuItem
+                    key={index}
+                    onClick={() => {
+                      handleColorChange(color);
+                      handleModalColorMenuClose(); // Close after selecting a color
+                    }}
+                    style={{
+                      backgroundColor: color,
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '4px',
+                      margin: '2px',
+                      padding: '0',
+                      minWidth: '0',
+                      display: 'inline-block',
+                    }}
+                  />
+                ))}
+              </Paper>
+              </ClickAwayListener>
+            )}
+           
+          </Popper>
+          
           <CloseTextButton onClick={handleClose}>Close</CloseTextButton>
         </Box>
       </Modal>
+      
     </>
   );
 }
